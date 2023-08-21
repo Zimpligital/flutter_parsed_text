@@ -114,6 +114,7 @@ class ParsedText extends StatelessWidget {
     final pattern = '(${_mapping.keys.toList().join('|')})';
 
     List<InlineSpan> widgets = [];
+    List<String?> texts = [];
 
     newString.splitMapJoin(
       RegExp(
@@ -162,7 +163,9 @@ class ParsedText extends StatelessWidget {
               child: GestureDetector(
                 onTap: () => mapping.onTap!(matchText),
                 child: mapping.renderWidget!(
-                    text: matchText, pattern: mapping.pattern!),
+                  text: matchText,
+                  pattern: mapping.pattern!,
+                ),
               ),
             );
           } else {
@@ -181,6 +184,7 @@ class ParsedText extends StatelessWidget {
         }
 
         widgets.add(widget);
+        texts.add(matchText);
 
         return '';
       },
@@ -190,9 +194,20 @@ class ParsedText extends StatelessWidget {
           style: this.style,
         ));
 
+        texts.add(text);
         return '';
       },
     );
+
+    if (texts.length >= 2 && texts.last == '') {
+      widgets.add(
+        TextSpan(
+          text: ' ',
+          style: style,
+          recognizer: TapGestureRecognizer()..onTap = () {},
+        ),
+      );
+    }
 
     if (selectable) {
       return SelectableText.rich(

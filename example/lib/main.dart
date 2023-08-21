@@ -126,7 +126,7 @@ class _MainAppState extends State<MainApp> {
                           content: new Text("${match.group(1)!} clicked."),
                           actions: <Widget>[
                             // usually buttons at the bottom of the dialog
-                            new FlatButton(
+                            new ElevatedButton(
                               child: new Text("Close"),
                               onPressed: () {},
                             ),
@@ -155,7 +155,7 @@ class _MainAppState extends State<MainApp> {
                           content: new Text("$url clicked."),
                           actions: <Widget>[
                             // usually buttons at the bottom of the dialog
-                            new FlatButton(
+                            new ElevatedButton(
                               child: new Text("Close"),
                               onPressed: () {},
                             ),
